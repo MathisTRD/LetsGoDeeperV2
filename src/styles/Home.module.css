@@ -67,17 +67,17 @@
 }
 
 .pretitle {
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 2.5vw + 0.5rem, 3rem);
   position: absolute;
-  top: -2rem;
-  left: -3rem;
-  width: 10rem;
+  top: clamp(-2.5rem, -3vw, -1.5rem);
+  left: clamp(-3rem, -4vw, -1.5rem);
+  width: clamp(6rem, 12vw, 10rem);
   color: #8c7bb6;
   text-shadow: 0 0 2px #8c7bb6;
 }
 
 .maintitle {
-  font-size: 9rem;
+  font-size: clamp(3rem, 8vw + 1rem, 9rem);
   animation: glowPulse 3s alternate infinite;
   cursor: pointer;
 }
@@ -113,13 +113,17 @@
   border: none;
   color: white;
   font-family: "Baloo Paaji 2", serif;
-  font-size: 1.2rem;
-  padding: 1rem 2rem;
-  border-radius: 5px;
+  font-size: clamp(0.9rem, 1.5vw + 0.5rem, 1.4rem);
+  padding: clamp(0.7rem, 1.2vw + 0.4rem, 1.2rem) clamp(1rem, 2vw + 0.8rem, 2rem);
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
-  width: clamp(10rem, 25vw, 14rem);
+  width: clamp(8rem, 25vw + 2rem, 16rem);
+  min-height: 44px; /* Minimum touch target */
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gameselector button:hover {
@@ -138,12 +142,15 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for modern browsers */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   opacity: 0;
   animation: fadeIn 3s forwards;
+  padding: clamp(1rem, 3vh + 0.5rem, 3rem) clamp(0.5rem, 2vw + 0.5rem, 2rem) clamp(4rem, 8vh + 2rem, 8rem) clamp(0.5rem, 2vw + 0.5rem, 2rem);
+  box-sizing: border-box;
 }
 
 .questions.fadeOutUp {
@@ -153,22 +160,26 @@
 .questionSection {
   position: relative;
   width: 100%;
-  height: 100%;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  max-height: calc(100vh - clamp(8rem, 12vh + 4rem, 16rem));
+  max-height: calc(100dvh - clamp(8rem, 12vh + 4rem, 16rem));
+  overflow: hidden;
+  container-type: inline-size;
 }
 
 .question {
   display: block;
-  font-size: 3em;
+  font-size: clamp(1.2rem, 2.5vw + 0.8rem, 3.5rem);
   margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
-  max-width: 90vw;
+  max-width: clamp(280px, 90vw, 800px);
+  line-height: clamp(1.3, 1.2 + 0.1vw, 1.5);
+  word-wrap: break-word;
+  hyphens: auto;
+  padding: clamp(0.5rem, 2vw, 1.5rem);
 }
 
 .question.fadeIn {
@@ -209,25 +220,33 @@
   border: none;
   color: white;
   font-family: "Baloo Paaji 2", serif;
-  font-size: 1.2rem;
-  padding: 1rem;
-  border-radius: 5px;
+  font-size: clamp(0.9rem, 1.5vw + 0.4rem, 1.3rem);
+  padding: clamp(0.8rem, 1.2vw + 0.4rem, 1.2rem) clamp(1rem, 2vw + 0.6rem, 1.8rem);
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
-  width: 12rem;
+  width: clamp(7rem, 20vw + 2rem, 14rem);
+  min-height: 44px; /* Minimum touch target */
   text-align: center;
   position: fixed;
-  bottom: 5%;
+  bottom: clamp(2rem, 5vh + 1rem, 5rem);
+  bottom: max(clamp(2rem, 5vh + 1rem, 5rem), env(safe-area-inset-bottom, 2rem));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nextButton:hover {
   filter: brightness(1.12);
-  transform: scale(1.05);
+  transform: translateX(-50%) scale(1.05);
 }
 
 .nextButton:active {
   filter: brightness(0.78);
-  transform: scale(1.08);
+  transform: translateX(-50%) scale(1.08);
 }
 
 .fadeIn {
@@ -369,43 +388,79 @@
   }
 }
 
-@media (max-width: 1200px) {
-  .pretitle {
-    font-size: clamp(2.2rem, 3vw, 3rem);
-    top: clamp(-2rem, -2.5vw, -1.5rem);
-    left: clamp(-2rem, -2.5vw, -1.5rem);
-    width: clamp(7rem, 10vw, 8rem);
-  }
+/* ===== COMPREHENSIVE RESPONSIVE DESIGN ===== */
 
-  .maintitle {
-    font-size: clamp(4.5rem, 8vw, 6rem);
+/* Large Desktop Screens (1400px+) */
+@media (min-width: 1400px) {
+  .main {
+    padding: 2rem;
   }
-
-  .gameselector button {
-    font-size: 1rem;
-    width: clamp(9rem, 30vw, 12rem);
-    padding: 0.9rem 1.5rem;
+  
+  .questions {
+    padding: 3rem 2rem 8rem 2rem;
   }
-
-  .question {
-    font-size: 2rem;
+  
+  .backButton {
+    width: 48px;
+    height: 48px;
+    top: 30px;
+    left: 30px;
+    font-size: 1.8rem;
   }
 }
 
-@media (max-width: 900px) {
-  .pretitle {
-    font-size: clamp(2rem, 3.2vw, 2.5rem);
-    top: clamp(-2rem, -2.3vw, -1.5rem);
-    left: clamp(-1.8rem, -2.2vw, -1.5rem);
-    width: clamp(7rem, 9vw, 7.5rem);
+/* Standard Desktop (1024px - 1399px) */
+@media (max-width: 1399px) and (min-width: 1024px) {
+  .questions {
+    padding: 2.5rem 2rem 7rem 2rem;
   }
-
-  .maintitle {
-    font-size: clamp(4rem, 7vw, 5.5rem);
+  
+  .questionSection {
+    max-height: calc(100vh - 12rem);
+  }
+  
+  .backButton {
+    width: 44px;
+    height: 44px;
+    top: 25px;
+    left: 25px;
+    font-size: 1.6rem;
   }
 }
 
-@media (max-width: 768px) {
+/* Small Desktop / Large Tablet Landscape (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .questions {
+    padding: 2rem 1.5rem 6rem 1.5rem;
+  }
+  
+  .questionSection {
+    max-height: calc(100vh - 10rem);
+  }
+  
+  .backButton {
+    width: 40px;
+    height: 40px;
+    top: 20px;
+    left: 20px;
+    font-size: 1.4rem;
+  }
+  
+  .gameselector {
+    gap: 1.2rem;
+  }
+}
+
+/* Tablet Portrait / Large Phone Landscape (481px - 767px) */
+@media (max-width: 767px) and (min-width: 481px) {
+  .questions {
+    padding: 1.5rem 1rem 5.5rem 1rem;
+  }
+  
+  .questionSection {
+    max-height: calc(100vh - 9rem);
+  }
+  
   .backButton {
     width: 36px;
     height: 36px;
@@ -413,36 +468,28 @@
     left: 15px;
     font-size: 1.3rem;
   }
-
-  .pretitle {
-    font-size: 2rem;
-    top: -2rem;
-    left: -1.5rem;
-    width: 7rem;
+  
+  .gameselector {
+    gap: 1rem;
   }
-
-  .maintitle {
-    font-size: 4rem;
-  }
-
-  .gameselector button {
-    font-size: 1rem;
-    width: clamp(8rem, 35vw, 11rem);
-    padding: 0.8rem 1.2rem;
-  }
-
-  .question {
-    font-size: 2.2rem;
-  }
-
-  .nextButton {
-    bottom: 5rem;
-    width: 10rem;
-    font-size: 1rem;
+  
+  /* Optimize for touch */
+  .gameselector button:hover {
+    filter: brightness(1.12);
+    transform: scale(1.02);
   }
 }
 
-@media (max-width: 480px) {
+/* Standard Phones (375px - 480px) */
+@media (max-width: 480px) and (min-width: 375px) {
+  .questions {
+    padding: 1rem 0.8rem 5rem 0.8rem;
+  }
+  
+  .questionSection {
+    max-height: calc(100vh - 8rem);
+  }
+  
   .backButton {
     width: 32px;
     height: 32px;
@@ -450,51 +497,128 @@
     left: 12px;
     font-size: 1.2rem;
   }
+  
+  .gameselector {
+    gap: 0.8rem;
+  }
+}
 
+/* Small Phones (320px - 374px) */
+@media (max-width: 374px) and (min-width: 320px) {
+  .questions {
+    padding: 0.8rem 0.5rem 4.5rem 0.5rem;
+  }
+  
+  .questionSection {
+    max-height: calc(100vh - 7rem);
+  }
+  
+  .backButton {
+    width: 28px;
+    height: 28px;
+    top: 10px;
+    left: 10px;
+    font-size: 1.1rem;
+  }
+  
+  .gameselector {
+    gap: 0.6rem;
+  }
+}
+
+/* Very Small Screens (below 320px) */
+@media (max-width: 319px) {
+  .questions {
+    padding: 0.5rem 0.3rem 4rem 0.3rem;
+  }
+  
+  .questionSection {
+    max-height: calc(100vh - 6rem);
+  }
+  
+  .backButton {
+    width: 24px;
+    height: 24px;
+    top: 8px;
+    left: 8px;
+    font-size: 1rem;
+  }
+  
   .pretitle {
-    font-size: 2rem;
-    top: -1.5rem;
-    left: -1rem;
-    width: 7rem;
+    font-size: 1.2rem !important;
   }
-
+  
   .maintitle {
-    font-size: 5rem;
-  }
-
-  .gameselector button, .nextButton {
-    font-size: 0.8rem;
-    width: clamp(7rem, 40vw, 10rem);
-    padding: 0.7rem 1rem;
-    min-width: 7rem;
-    max-width: 10rem;
-  }
-
-  .question {
-    font-size: 2rem;
-    line-height: 1.3;
-    padding: 0 1rem;
-  }
-
-  .nextButton {
-    width: 8rem;
-    font-size: 0.8rem;
+    font-size: 2.5rem !important;
   }
 }
 
-@media (max-width: 375px) {
-  .question {
-    font-size: 1.4rem;
-    line-height: 1.4;
-    padding: 0 0.5rem;
+/* Touch Device Optimizations */
+@media (pointer: coarse) {
+  .gameselector button, .nextButton {
+    min-height: 44px;
+    padding: clamp(0.8rem, 1.5vw + 0.4rem, 1.2rem) clamp(1rem, 2vw + 0.6rem, 1.8rem);
+  }
+  
+  .backButton {
+    min-width: 32px;
+    min-height: 32px;
+  }
+  
+  /* Reduce hover effects on touch devices */
+  .gameselector button:hover {
+    transform: scale(1.02);
+    filter: brightness(1.05);
+  }
+  
+  .nextButton:hover {
+    transform: translateX(-50%) scale(1.02);
+    filter: brightness(1.05);
   }
 }
 
-@media (pointer: coarse) and (max-width: 900px) {
-  .gameselector button, .nextButton {
-    font-size: clamp(1.1rem, 1rem + 2vw, 1.4rem);
-    padding: 0.8rem 1.3rem;
-    min-height: 2.8rem;
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .pretitle, .maintitle {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Landscape Orientation Adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .questions {
+    padding: 0.8rem 1rem 4rem 1rem;
+  }
+  
+  .questionSection {
+    max-height: calc(100vh - 6rem);
+  }
+  
+  .pretitle {
+    font-size: clamp(1rem, 3vw, 2rem) !important;
+  }
+  
+  .maintitle {
+    font-size: clamp(2rem, 6vw, 4rem) !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .questions {
+    position: static;
+    height: auto;
+  }
+  
+  .nextButton, .backButton {
+    display: none;
+  }
+  
+  .question {
+    font-size: 14pt;
+    color: black;
   }
 }
 

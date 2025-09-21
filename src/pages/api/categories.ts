@@ -15,14 +15,8 @@ export default async function handler(
   }
 
   try {
-    // Query all categories from the database
-    const result = await sql`
-      SELECT name 
-      FROM categories 
-      ORDER BY name
-    `
-    
-    const categories = result.rows.map(row => row.name)
+    // Return hardcoded categories for frontend display
+    const categories = ['Laughs', 'Stories', 'Secrets']
     
     return res.status(200).json({ categories })
   } catch (error) {

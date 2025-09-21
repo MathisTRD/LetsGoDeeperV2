@@ -20,12 +20,22 @@ export default async function handler(
     return res.status(400).json({ error: 'Sheet parameter is required' })
   }
 
+  // Map frontend category names to database category names
+  const categoryMapping: { [key: string]: string } = {
+    'Laughs': 'Just Met',
+    'Stories': 'Friends', 
+    'Secrets': 'Lovers'
+  }
+
+  // Get the database category name, or use the original if no mapping exists
+  const databaseCategory = categoryMapping[sheet] || sheet
+
   try {
     // Query questions by category from the database
     const result = await sql`
       SELECT question 
       FROM questions 
-      WHERE category = ${sheet}
+      WHERE category = ${databaseCategory}
       ORDER BY id
     `
     

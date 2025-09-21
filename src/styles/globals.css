@@ -5,11 +5,52 @@ body {
   font-family: "Inter", serif;
   background-color: #1E1D20;
   color: #EFECE9;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
   touch-action: manipulation;
+}
+
+/* Support for viewport units on mobile */
+html {
+  height: 100%;
+  height: -webkit-fill-available;
+  /* Better text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  /* Support for dynamic viewport units */
+  min-height: 100dvh;
+}
+
+/* Modern responsive containers */
+@supports (container-type: inline-size) {
+  .main {
+    container-type: inline-size;
+  }
+}
+
+/* Enhanced focus states for accessibility */
+:focus-visible {
+  outline: 2px solid #8c7bb6;
+  outline-offset: 2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 :root {

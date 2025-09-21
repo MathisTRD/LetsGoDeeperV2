@@ -37,7 +37,7 @@ export default function Home() {
       } catch (error) {
         console.error('Error fetching categories:', error);
         // Fallback to hardcoded categories if database fails
-        setCategories(['Just Met', 'Friends', 'Lovers']);
+        setCategories(['Laughs', 'Stories', 'Secrets']);
       }
     };
 
