@@ -1,0 +1,539 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.main {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", serif;
+  background-color: #1E1D20;
+  color: #EFECE9;
+  text-align: center;
+  position: relative;
+  touch-action: manipulation;
+}
+
+.backButton {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  color: rgba(140, 123, 182, 0.7);
+  font-size: 1.5rem;
+  font-weight: normal;
+  opacity: 0;
+  transform: translateX(-50px);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.backButton.show {
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+
+.backButton:hover {
+  color: rgba(140, 123, 182, 1);
+  transform: translateX(0) scale(1.2);
+}
+
+.backButton:active {
+  transform: translateX(0) scale(1.1);
+}
+
+.title {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 2s ease-in, opacity 2s ease-in;
+  z-index: 10;
+}
+
+.title.moveUp {
+  animation: goUp 2s ease-in forwards !important;
+}
+
+.pretitle {
+  font-size: 3rem;
+  position: absolute;
+  top: -2rem;
+  left: -3rem;
+  width: 10rem;
+  color: #8c7bb6;
+  text-shadow: 0 0 2px #8c7bb6;
+}
+
+.maintitle {
+  font-size: 9rem;
+  animation: glowPulse 3s alternate infinite;
+  cursor: pointer;
+}
+
+.gameselector {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0;
+  z-index: 5;
+}
+
+.gameselector.show {
+  display: flex;
+  animation: fadeInUp 1.5s forwards;
+}
+
+.gameselector.fadeOut {
+  animation: goUpCentered 2s ease-in forwards;
+}
+
+.gameselector.hidden {
+  display: none !important;
+}
+
+.gameselector button {
+  background-color: #8c7bb6;
+  border: none;
+  color: white;
+  font-family: "Baloo Paaji 2", serif;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: clamp(10rem, 25vw, 14rem);
+  text-align: center;
+}
+
+.gameselector button:hover {
+  filter: brightness(1.12);
+  transform: scale(1.05);
+}
+
+.gameselector button:active {
+  filter: brightness(0.78);
+  transform: scale(1.08);
+}
+
+.questions {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  animation: fadeIn 3s forwards;
+}
+
+.questions.fadeOutUp {
+  animation: fadeOutUp 1s ease-in forwards;
+}
+
+.questionSection {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.question {
+  display: block;
+  font-size: 3em;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  max-width: 90vw;
+}
+
+.question.fadeIn {
+  animation: smoothFadeIn 0.7s ease-out forwards;
+}
+
+.question.fadeOut {
+  animation: smoothFadeOut 0.7s ease-in forwards;
+}
+
+.finalNote {
+  display: block;
+  font-size: 3em;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.finalNote.fadeIn {
+  animation: fadeIn 3s forwards;
+}
+
+.gdCore {
+  font-weight: 600;
+  color: #8c7bb6;
+  display: inline-block;
+}
+
+.gdRest {
+  display: inline;
+}
+
+.nextButton {
+  background-color: #8c7bb6;
+  border: none;
+  color: white;
+  font-family: "Baloo Paaji 2", serif;
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 12rem;
+  text-align: center;
+  position: fixed;
+  bottom: 5%;
+}
+
+.nextButton:hover {
+  filter: brightness(1.12);
+  transform: scale(1.05);
+}
+
+.nextButton:active {
+  filter: brightness(0.78);
+  transform: scale(1.08);
+}
+
+.fadeIn {
+  animation: fadeIn 3s forwards;
+}
+
+.moveUp {
+  animation: goUp 2s ease-in forwards !important;
+}
+
+.fadeOut {
+  animation: fadeOutRed 1s forwards;
+}
+
+@keyframes fadeOutRed {
+  0% {
+    color: #EFECE9;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70%{
+    opacity: 0.4;
+  }
+  100% {
+    color: #8c7bb6;
+    opacity: 0;
+    transform: translateY(-1000px);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 10px #EFECE9;
+  }
+  100% {
+    text-shadow: 0 0 15px #8c7bb6;
+  }
+}
+
+@keyframes goUp {
+  0% {
+    transform: translateY(0);
+    opacity: 100;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+}
+
+@keyframes goUpCentered {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-1000px);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  0%{
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(300px);
+  }
+  85% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes questionsContainer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes smoothFadeIn {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes smoothFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .pretitle {
+    font-size: clamp(2.2rem, 3vw, 3rem);
+    top: clamp(-2rem, -2.5vw, -1.5rem);
+    left: clamp(-2rem, -2.5vw, -1.5rem);
+    width: clamp(7rem, 10vw, 8rem);
+  }
+
+  .maintitle {
+    font-size: clamp(4.5rem, 8vw, 6rem);
+  }
+
+  .gameselector button {
+    font-size: 1rem;
+    width: clamp(9rem, 30vw, 12rem);
+    padding: 0.9rem 1.5rem;
+  }
+
+  .question {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .pretitle {
+    font-size: clamp(2rem, 3.2vw, 2.5rem);
+    top: clamp(-2rem, -2.3vw, -1.5rem);
+    left: clamp(-1.8rem, -2.2vw, -1.5rem);
+    width: clamp(7rem, 9vw, 7.5rem);
+  }
+
+  .maintitle {
+    font-size: clamp(4rem, 7vw, 5.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .backButton {
+    width: 36px;
+    height: 36px;
+    top: 15px;
+    left: 15px;
+    font-size: 1.3rem;
+  }
+
+  .pretitle {
+    font-size: 2rem;
+    top: -2rem;
+    left: -1.5rem;
+    width: 7rem;
+  }
+
+  .maintitle {
+    font-size: 4rem;
+  }
+
+  .gameselector button {
+    font-size: 1rem;
+    width: clamp(8rem, 35vw, 11rem);
+    padding: 0.8rem 1.2rem;
+  }
+
+  .question {
+    font-size: 2.2rem;
+  }
+
+  .nextButton {
+    bottom: 5rem;
+    width: 10rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .backButton {
+    width: 32px;
+    height: 32px;
+    top: 12px;
+    left: 12px;
+    font-size: 1.2rem;
+  }
+
+  .pretitle {
+    font-size: 2rem;
+    top: -1.5rem;
+    left: -1rem;
+    width: 7rem;
+  }
+
+  .maintitle {
+    font-size: 5rem;
+  }
+
+  .gameselector button, .nextButton {
+    font-size: 0.8rem;
+    width: clamp(7rem, 40vw, 10rem);
+    padding: 0.7rem 1rem;
+    min-width: 7rem;
+    max-width: 10rem;
+  }
+
+  .question {
+    font-size: 2rem;
+    line-height: 1.3;
+    padding: 0 1rem;
+  }
+
+  .nextButton {
+    width: 8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .question {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    padding: 0 0.5rem;
+  }
+}
+
+@media (pointer: coarse) and (max-width: 900px) {
+  .gameselector button, .nextButton {
+    font-size: clamp(1.1rem, 1rem + 2vw, 1.4rem);
+    padding: 0.8rem 1.3rem;
+    min-height: 2.8rem;
+  }
+}
+
+/* Question Board Link */
+.questionBoardLink {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.questionBoardLink a {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #EFECE9;
+  text-decoration: none;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.questionBoardLink a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .questionBoardLink {
+    bottom: 1.5rem;
+  }
+  
+  .questionBoardLink a {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}
