@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:build": "docker build -t letsgo-deeper .",
+    "docker:run": "docker run -p 3000:3000 letsgo-deeper"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",

@@ -1,0 +1,30 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Environment files (NEVER include secrets in Docker image)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+.next/
+out/
+
+# Git
+.git
+.gitignore
+
+# Docker files
+Dockerfile*
+docker-compose*
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
