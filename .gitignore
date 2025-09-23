@@ -7,11 +7,7 @@ npm-debug.log*
 out/
 
 # Environment files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+*.env
 
 # Vercel
 .vercel
@@ -19,6 +15,9 @@ out/
 # IDE
 .vscode/
 .idea/
+
+# Documentation
+*.md
 
 # OS
 .DS_Store

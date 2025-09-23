@@ -3,11 +3,7 @@ node_modules
 npm-debug.log*
 
 # Environment files (NEVER include secrets in Docker image)
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+*.env
 
 # Build outputs
 .next/
@@ -24,6 +20,9 @@ docker-compose*
 # IDE
 .vscode
 .idea
+
+# Documentation
+*.md
 
 # OS
 .DS_Store

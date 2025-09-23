@@ -2,17 +2,14 @@ version: '3.8'
 
 services:
   web:
-    # Use pre-built image from GitHub Container Registry
-    image: ghcr.io/mathistrd/letsgodeeperv2:latest
-    # For local development, uncomment the build section:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
       # Pass environment variables at runtime (SECURE)
-      - NODE_ENV=${NODE_ENV:-production}
+      - NODE_ENV=${NODE_ENV:-development}
       - POSTGRES_URL=${POSTGRES_URL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - API_KEY=${API_KEY}
@@ -23,9 +20,8 @@ services:
       - STACK_SECRET_SERVER_KEY=${STACK_SECRET_SERVER_KEY}
       - NEXT_TELEMETRY_DISABLED=1
     restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-        reservations:
-          memory: 256M
+    volumes:
+      # Mount source code for development
+      - .:/app
+      - /app/node_modules
+      - /app/.next
