@@ -75,7 +75,7 @@ export default function AddQuestion() {
     return (
       <>
         <Head>
-          <title>Admin Access - Let's Go Deeper</title>
+          <title>Admin Access - Let&apos;s Go Deeper</title>
         </Head>
 
         <div className={styles.container}>
@@ -128,7 +128,7 @@ export default function AddQuestion() {
   return (
     <>
       <Head>
-        <title>Add Question - Let's Go Deeper</title>
+        <title>Add Question - Let&apos;s Go Deeper</title>
       </Head>
 
       <div className={styles.container}>

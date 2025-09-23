@@ -58,7 +58,7 @@ export default function QuestionBoard() {
   return (
     <>
       <Head>
-        <title>Question Board - Let's Go Deeper</title>
+        <title>Question Board - Let&apos;s Go Deeper</title>
       </Head>
 
       <div className={styles.container}>
