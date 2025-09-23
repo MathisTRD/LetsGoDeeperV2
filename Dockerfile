@@ -1,5 +1,5 @@
-# Use the official Node.js 20 LTS Alpine image as base (more stable than 22)
-FROM node:20-alpine AS base
+# Use the official Node.js 18 LTS Alpine image (most stable)
+FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -9,10 +9,9 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
-RUN \
-  if [ -f package-lock.json ]; then npm ci; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN apk add --no-cache git && \
+  npm cache clean --force && \
+  npm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
