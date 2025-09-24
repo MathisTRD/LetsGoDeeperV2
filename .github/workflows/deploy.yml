@@ -26,7 +26,11 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm config set fetch-retry-maxtimeout 600000
+          npm config set fetch-retry-mintimeout 10000
+          npm config set fetch-timeout 600000
+          npm ci --prefer-offline --no-audit --no-fund
 
       - name: Run lint
         run: npm run lint --if-present || echo "Linting skipped"
@@ -79,7 +83,9 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
 
   deploy:
     needs: build-and-push
