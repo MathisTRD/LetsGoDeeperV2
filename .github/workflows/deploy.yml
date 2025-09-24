@@ -90,11 +90,12 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.DOKPLOY_HOST != ''
     name: Deploy to Dokploy
     
     steps:
       - name: Deploy to Dokploy
+        if: ${{ secrets.DOKPLOY_HOST && secrets.DOKPLOY_USER && secrets.DOKPLOY_SSH_KEY && secrets.DOKPLOY_WEBHOOK_URL }}
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DOKPLOY_HOST }}
@@ -108,3 +109,14 @@ jobs:
                 "image": "ghcr.io/${{ github.repository }}:latest",
                 "tag": "latest"
               }'
+      
+      - name: Deployment skipped
+        if: ${{ !secrets.DOKPLOY_HOST || !secrets.DOKPLOY_USER || !secrets.DOKPLOY_SSH_KEY || !secrets.DOKPLOY_WEBHOOK_URL }}
+        run: |
+          echo "⏭️ Deployment skipped - Dokploy secrets not configured"
+          echo "✅ Docker image built and pushed successfully to ghcr.io/${{ github.repository }}:latest"
+          echo "🔧 To enable auto-deployment, configure these repository secrets:"
+          echo "   - DOKPLOY_HOST"
+          echo "   - DOKPLOY_USER" 
+          echo "   - DOKPLOY_SSH_KEY"
+          echo "   - DOKPLOY_WEBHOOK_URL"
