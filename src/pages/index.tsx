@@ -58,16 +58,20 @@ export default function Home() {
       const response = await fetch(`/api/questions?sheet=${category}`);
       const data = await response.json();
       
-      if (data.questions && Array.isArray(data.questions)) {
+      if (data.questions && Array.isArray(data.questions) && data.questions.length > 0) {
         const questions = data.questions.map((q: string) => ({ text: q }));
         setCurrentQuestions(shuffleArray(questions));
+        return true; // Success
       } else {
         setCurrentQuestions([]);
-        alert("No questions found or there was an error fetching data.");
+        alert("No questions found for this category. Please try another one.");
+        return false; // Failed - no questions
       }
     } catch (error) {
       console.error('Error fetching questions:', error);
       alert("Error fetching questions. Please try again.");
+      setCurrentQuestions([]);
+      return false; // Failed - error
     }
   };
 
@@ -87,18 +91,33 @@ export default function Home() {
     setSelectedGame(category);
     setCategoryFadingOut(true);
     
-    const fetchPromise = fetchQuestions(category);
-    
-    setTimeout(() => {
-      setCategoriesHidden(true);
-      setShowQuestion(true);
-      setShowBackButton(true);
+    try {
+      const questionsLoaded = await fetchQuestions(category);
       
-      fetchPromise.then(() => {
-        setQuestionReady(true);
-        setCurrentIndex(0);
-      });
-    }, 1200);
+      if (questionsLoaded) {
+        // Only proceed to question view if questions were successfully loaded
+        setTimeout(() => {
+          setCategoriesHidden(true);
+          setShowQuestion(true);
+          setShowBackButton(true);
+          setQuestionReady(true);
+          setCurrentIndex(0);
+        }, 1200);
+      } else {
+        // Stay on category screen if no questions found
+        setTimeout(() => {
+          setCategoryFadingOut(false);
+          setSelectedGame('');
+        }, 500);
+      }
+    } catch (error) {
+      console.error('Error in handleGameModeClick:', error);
+      // Reset to category screen on error
+      setTimeout(() => {
+        setCategoryFadingOut(false);
+        setSelectedGame('');
+      }, 500);
+    }
   };
 
   const handleBackButtonClick = () => {

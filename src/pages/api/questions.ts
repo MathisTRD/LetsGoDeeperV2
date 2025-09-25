@@ -22,8 +22,8 @@ export default async function handler(
 
   // Map frontend category names to database category names
   const categoryMapping: { [key: string]: string } = {
-    'Laughs': 'Just Met',
-    'Stories': 'Friends', 
+    'Laughs': 'JustMet',
+    'Stories': 'OnlyFriends', 
     'Secrets': 'Lovers'
   }
 
