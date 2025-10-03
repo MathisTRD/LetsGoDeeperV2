@@ -102,13 +102,13 @@ export default function Home() {
           setShowBackButton(true);
           setQuestionReady(true);
           setCurrentIndex(0);
-        }, 1200);
+        }, 1100);
       } else {
         // Stay on category screen if no questions found
         setTimeout(() => {
           setCategoryFadingOut(false);
           setSelectedGame('');
-        }, 500);
+        }, 600);
       }
     } catch (error) {
       console.error('Error in handleGameModeClick:', error);

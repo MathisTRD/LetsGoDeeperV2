@@ -20,26 +20,36 @@ export default async function handler(
     return res.status(400).json({ error: 'Sheet parameter is required' })
   }
 
-  // Map frontend category names to database category names
-  const categoryMapping: { [key: string]: string } = {
-    'Laughs': 'JustMet',
-    'Stories': 'OnlyFriends', 
-    'Secrets': 'Lovers'
+  // Create a list of possible database category variants (lowercased)
+  // so we can match legacy values like "Just Met", "JustMet", etc.
+  const variantsByCanonical: Record<string, string[]> = {
+    Laughs: ['laughs', 'justmet', 'just met', 'just_met', 'just-met'],
+    Stories: ['stories', 'onlyfriends', 'only friends', 'only_friends', 'only-friends'],
+    Secrets: ['secrets', 'lovers', 'lover']
   }
 
-  // Get the database category name, or use the original if no mapping exists
-  const databaseCategory = categoryMapping[sheet] || sheet
+  const requested = sheet.trim()
+  // Normalize requested into canonical if it's one of the canonical names (case-insensitive)
+  const canonical = ['laughs', 'stories', 'secrets'].includes(requested.toLowerCase())
+    ? requested[0].toUpperCase() + requested.slice(1).toLowerCase()
+    : requested
+
+  const variants = variantsByCanonical[canonical] || [requested.toLowerCase()]
 
   try {
-    // Query questions by category from the database
+    // Query all questions and filter in JS by matching LOWER(category)
     const result = await sql`
-      SELECT question 
-      FROM questions 
-      WHERE category = ${databaseCategory}
+      SELECT question, category
+      FROM questions
       ORDER BY id
     `
-    
-    const questions = result.rows.map(row => row.question)
+
+    const questions = result.rows
+      .filter((row: any) => {
+        const cat = (row.category || '').toString().trim().toLowerCase()
+        return variants.includes(cat)
+      })
+      .map((row: any) => row.question)
     
     return res.status(200).json({ questions })
   } catch (error) {

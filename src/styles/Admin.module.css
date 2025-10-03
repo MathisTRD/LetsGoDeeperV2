@@ -3,15 +3,15 @@
   margin: 0 auto;
   padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #1a1a1a;
+  background: var(--main-dark-color);
   min-height: 100vh;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .header {
   text-align: center;
   margin-bottom: 30px;
-  background: #2d2d2d;
+  background: rgba(255,255,255,0.02);
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -19,14 +19,14 @@
 }
 
 .header h1 {
-  color: #ffffff;
+  color: var(--text-color);
   margin-bottom: 10px;
   font-size: 32px;
   font-weight: bold;
 }
 
 .header p {
-  color: #b0b0b0;
+  color: rgba(239,236,233,0.6);
   font-size: 16px;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .statCard {
-  background: #2d2d2d;
+  background: rgba(255,255,255,0.02);
   padding: 20px;
   border-radius: 8px;
   text-align: center;
@@ -58,7 +58,7 @@
 .statNumber {
   font-size: 32px;
   font-weight: bold;
-  color: #007bff;
+  color: var(--accent-color);
 }
 
 .controls {
@@ -66,7 +66,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #2d2d2d;
+  background: rgba(255,255,255,0.02);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -75,28 +75,51 @@
 
 .controls label {
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .select {
   padding: 8px 12px;
-  border: 1px solid #555555;
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 4px;
   font-size: 14px;
-  background: #404040;
-  color: #ffffff;
+  background: rgba(255,255,255,0.03);
+  color: var(--text-color);
   min-width: 200px;
   font-weight: 500;
+}
+.select {
+  /* Prefer dark native dropdown where supported */
+  color-scheme: dark;
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  padding-right: 36px; /* room for custom arrow */
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-color) 50%), linear-gradient(135deg, var(--text-color) 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 3px), calc(100% - 13px) calc(50% - 3px);
+  background-size: 6px 6px,6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* Ensure options are legible in native dropdowns */
+.select option {
+  background: var(--main-dark-color);
+  color: var(--text-color);
+}
+
+/* Hide default IE/Edge arrow */
+.select::-ms-expand {
+  display: none;
 }
 
 .select:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 6px rgba(140, 123, 182, 0.12);
 }
 
 .tableContainer {
-  background: #2d2d2d;
+  background: rgba(255,255,255,0.02);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -109,12 +132,12 @@
 }
 
 .table th {
-  background: #1a1a1a;
+  background: var(--main-dark-color);
   padding: 12px 16px;
   text-align: left;
   font-weight: 600;
-  color: #ffffff;
-  border-bottom: 2px solid #555555;
+  color: var(--text-color);
+  border-bottom: 2px solid rgba(255,255,255,0.06);
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -122,14 +145,14 @@
 
 .table td {
   padding: 12px 16px;
-  border-bottom: 1px solid #404040;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
   vertical-align: top;
-  color: #ffffff;
+  color: var(--text-color);
   font-weight: 400;
 }
 
 .table tr:hover {
-  background: #404040;
+  background: rgba(255,255,255,0.02);
 }
 
 .table th:first-child,
@@ -137,7 +160,7 @@
   width: 60px;
   text-align: center;
   font-weight: bold;
-  color: #b0b0b0;
+  color: rgba(239,236,233,0.6);
 }
 
 .table th:nth-child(2),
@@ -157,31 +180,36 @@
 .categoryBadge {
   display: inline-block;
   padding: 4px 8px;
-  background: #007bff;
-  color: white;
+  background: var(--accent-color);
+  color: #ffffff;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
 }
 
 /* Different colors for each category */
-.justmet {
-  background: #28a745 !important; /* Green for "Just Met" */
+.laughs {
+  background: #28a745 !important; /* green */
+  color: #ffffff !important;
 }
 
-.friends {
-  background: #007bff !important; /* Blue for "Friends" */
+.stories {
+  background: #8c7bb6 !important; /* purple (main accent) */
+  color: #ffffff !important;
 }
 
-.lovers {
-  background: #dc3545 !important; /* Red/Pink for "Lovers" */
+.secrets {
+  background: #e83e8c !important; /* pink/red - accessible */
+  color: #ffffff !important;
 }
 
 .loading {
   text-align: center;
   padding: 50px;
   font-size: 18px;
-  color: #b0b0b0;
+  color: rgba(239,236,233,0.6);
 }
 
 .footer {
@@ -190,14 +218,14 @@
 }
 
 .footer a {
-  color: #4dabf7;
+  color: var(--accent-color);
   text-decoration: none;
   font-weight: 500;
 }
 
 .footer a:hover {
   text-decoration: underline;
-  color: #74c0fc;
+  filter: brightness(0.9);
 }
 
 /* Responsive design */
@@ -230,7 +258,7 @@
 
 /* Add Question Form Styles */
 .addForm {
-  background: #2d2d2d;
+  background: rgba(255,255,255,0.02);
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -246,13 +274,13 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid #555555;
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 4px;
   font-size: 14px;
   background: #404040;
@@ -264,12 +292,12 @@
 
 .textarea:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 6px rgba(140, 123, 182, 0.12);
 }
 
 .submitButton {
-  background: #007bff;
+  background: var(--accent-color);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -281,11 +309,12 @@
 }
 
 .submitButton:hover {
-  background: #0056b3;
+  filter: brightness(0.92);
+  transform: translateY(-1px);
 }
 
 .submitButton:disabled {
-  background: #6c757d;
+  background: rgba(255,255,255,0.06);
   cursor: not-allowed;
 }
 
@@ -294,7 +323,7 @@
   padding: 12px;
   border-radius: 4px;
   font-weight: 500;
-  background: #2d2d2d;
-  border: 1px solid #404040;
-  color: #ffffff;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: var(--text-color);
 }

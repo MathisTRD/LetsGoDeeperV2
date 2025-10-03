@@ -27,12 +27,12 @@ export default function AddQuestion() {
 
       if (response.ok) {
         setIsAuthenticated(true);
-        setMessage('✅ Access granted!');
+    setMessage('Access granted');
       } else {
-        setMessage('❌ Incorrect password');
+  setMessage('Incorrect password');
       }
     } catch (error) {
-      setMessage('❌ Authentication error');
+  setMessage('Authentication error');
     } finally {
       setAuthLoading(false);
     }
@@ -59,13 +59,13 @@ export default function AddQuestion() {
       });
 
       if (response.ok) {
-        setMessage('✅ Question added successfully!');
+  setMessage('Question added successfully');
         setQuestion(''); // Clear the question field
       } else {
-        setMessage('❌ Failed to add question');
+  setMessage('Failed to add question');
       }
     } catch (error) {
-      setMessage('❌ Error adding question');
+  setMessage('Error adding question');
     } finally {
       setLoading(false);
     }
@@ -80,7 +80,7 @@ export default function AddQuestion() {
 
         <div className={styles.container}>
           <header className={styles.header}>
-            <h1>🔒 Admin Access Required</h1>
+            <h1>Admin Access Required</h1>
             <p>Enter the password to add new questions</p>
           </header>
 
@@ -116,7 +116,7 @@ export default function AddQuestion() {
           </div>
 
           <div className={styles.footer}>
-            <a href="/questions">← Back to Question Board</a>
+            <a href="/questions">Back to Question Board</a>
             <span> | </span>
             <a href="/">Back to Game</a>
           </div>
@@ -149,9 +149,9 @@ export default function AddQuestion() {
                 required
               >
                 <option value="">Select a category</option>
-                <option value="Just Met">Just Met</option>
-                <option value="Friends">Friends</option>
-                <option value="Lovers">Lovers</option>
+                <option value="Laughs">Laughs</option>
+                <option value="Stories">Stories</option>
+                <option value="Secrets">Secrets</option>
               </select>
             </div>
 
@@ -185,7 +185,7 @@ export default function AddQuestion() {
         </div>
 
         <div className={styles.footer}>
-          <a href="/questions">← Back to Question Board</a>
+          <a href="/questions">Back to Question Board</a>
           <span> | </span>
           <a href="/">Back to Game</a>
         </div>

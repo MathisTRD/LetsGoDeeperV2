@@ -9,8 +9,9 @@ interface Question {
 }
 
 interface Category {
-  id: number;
+  id?: number;
   name: string;
+  count?: number;
 }
 
 export default function QuestionBoard() {
@@ -45,7 +46,12 @@ export default function QuestionBoard() {
 
   const filteredQuestions = selectedCategory === 'all' 
     ? questions 
-    : questions.filter(q => q.category === selectedCategory);
+    : questions.filter(q => {
+        // Compare normalized values so legacy DB entries match canonical buckets
+        const qcat = (q.category || '').trim().toLowerCase()
+        const sel = selectedCategory.trim().toLowerCase()
+        return qcat === sel
+      })
 
   if (loading) {
     return (
@@ -91,11 +97,13 @@ export default function QuestionBoard() {
             className={styles.select}
           >
             <option value="all">All Categories ({questions.length})</option>
-            {categories.map(cat => {
-              const count = questions.filter(q => q.category === cat.name).length;
+            {categories.map((cat, idx) => {
+              // categories from API are { name, count }
+              const count = cat.count ?? 0
+              const value = cat.name
               return (
-                <option key={cat.id} value={cat.name}>
-                  {cat.name} ({count})
+                <option key={idx} value={value}>
+                  {value} ({count})
                 </option>
               );
             })}
@@ -116,7 +124,7 @@ export default function QuestionBoard() {
                 <tr key={question.id}>
                   <td>{question.id}</td>
                   <td>
-                    <span className={`${styles.categoryBadge} ${styles[question.category.toLowerCase().replace(' ', '')]}`}>
+                    <span className={`${styles.categoryBadge} ${styles[(question.category||'').toLowerCase().replace(/\s+/g, '')] || ''}`}>
                       {question.category}
                     </span>
                   </td>
@@ -128,9 +136,9 @@ export default function QuestionBoard() {
         </div>
 
         <div className={styles.footer}>
-          <a href="/add-question">+ Add New Question</a>
+          <a href="/add-question">Add New Question</a>
           <span> | </span>
-          <a href="/">← Back to Game</a>
+          <a href="/">Back to Game</a>
         </div>
       </div>
     </>
