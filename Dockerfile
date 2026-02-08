@@ -2,6 +2,10 @@ FROM node:22-alpine
 
 WORKDIR /app
 
+# Ensure Next.js binds to the container network interface
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
+
 # Copy package files and install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
