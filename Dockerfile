@@ -11,10 +11,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 # Copy application code (excluding sensitive files via .dockerignore)
-COPY src/ ./src/
-COPY public/ ./public/
-COPY next.config.js ./
-COPY tsconfig.json ./
+COPY . ./
 
 # Build the application
 RUN npm run build
