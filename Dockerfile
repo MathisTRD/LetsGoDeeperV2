@@ -22,5 +22,5 @@ RUN npm run build
 # Expose port
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "start"]
+# Start the application (bind to all interfaces)
+CMD ["npx", "next", "start", "-p", "3000", "-H", "0.0.0.0"]
